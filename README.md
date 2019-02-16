@@ -1,0 +1,2 @@
+# alterstory
+create alternative stories
