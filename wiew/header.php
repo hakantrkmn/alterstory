@@ -28,7 +28,7 @@ if (isset($_GET['cikis']) ) {
 
   <title>AlterStory</title>
   <link rel="shortcut icon" href="favicon.ico">
-  <base href="/hikaye2/" >
+  <base href="/alterstory/" >
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">

@@ -1,5 +1,7 @@
 <?php
+require 'vendor/autoload.php';
 
+use Carbon\Carbon;
 require_once 'classes/firstAlter.php';
 
 class rootStory
@@ -95,6 +97,9 @@ class rootStory
         $this->hikaye_seviye = $articleResult->hikaye_seviye;
         $this->hikaye_begeni = $articleResult->hikaye_begeni;
         $this->kullanici_id = $articleResult->kullanici_id;
+
+        $this->hikaye_tarih=Carbon::createFromTimestamp(strtotime($this->hikaye_tarih))->diffForHumans(); 
+        
 
         $this->devamlar = array(firstAlter::initByIdNoObj($articleResult->hikaye_devambir),
         firstAlter::initByIdNoObj($articleResult->hikaye_devamiki),

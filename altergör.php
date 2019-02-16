@@ -12,6 +12,7 @@ if ($_GET['seviye']==0) {
 }
 include 'wiew/header.php';
 ?>
+
 <div class="container sd">
   <div class="row">
 

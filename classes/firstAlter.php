@@ -1,4 +1,7 @@
 <?php
+require 'vendor/autoload.php';
+
+use Carbon\Carbon;
 require_once 'classes/users.php';
 require_once 'classes/secondAlter.php';
 require_once 'classes/rootStory.php';
@@ -132,6 +135,8 @@ class firstAlter
         $this->kullanici_id = $articleResult->kullanici_id;
         $this->kullanici = users::initByIdNoObj($this->kullanici_id);
         $this->parent = rootStory::initByIdNoObj($this->alterbir_parentid);
+        $this->alterbir_tarih=Carbon::createFromTimestamp(strtotime($this->alterbir_tarih))->diffForHumans(); 
+
 
 
         $this->devamlar = array(secondAlter::initByIdNoObj($articleResult->alterbir_devambir),
@@ -170,6 +175,9 @@ class firstAlter
         {
             $articleResult->kullanici = users::initByIdNoObj($articleResult->kullanici_id);
             $articleResult->parent = rootStory::initByIdNoObj($articleResult->alterbir_parentid);
+            $articleResult->alterbir_tarih=Carbon::createFromTimestamp(strtotime($articleResult->alterbir_tarih))->diffForHumans(); 
+
+
 
             return $articleResult;
         }

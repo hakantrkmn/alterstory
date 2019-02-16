@@ -6,5 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
+    'Symfony\\Contracts\\' => array($vendorDir . '/symfony/contracts'),
+    'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
+    '' => array($vendorDir . '/nesbot/carbon/src'),
 );
