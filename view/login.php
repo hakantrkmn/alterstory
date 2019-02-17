@@ -5,11 +5,10 @@
 
 
 
-include 'wiew/header.php';
-include 'class.php';
+include 'view/header.php';
 
 
-$yanlisgiris;
+
 
 
 
@@ -39,7 +38,7 @@ $yanlisgiris;
         </div>
         <div class="form-group">
             <button onclick="sorgu2()" id="giris" type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
-            <a  id="giris" href="kayit" class="btn btn-primary btn-block">Kayıt Ol</a>
+            <a  id="giris" href="?op=kayit" class="btn btn-primary btn-block">Kayıt Ol</a>
         </div>
     </form>
 
@@ -48,6 +47,6 @@ $yanlisgiris;
 </div>
 
 <?php
-include 'wiew/footer.php';
+include 'view/footer.php';
 
 ?>

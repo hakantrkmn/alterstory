@@ -82,13 +82,15 @@ console.log("asd");
 	  if (result.value) {
 	    Swal.fire(
 	      'Silindi!',
-	    )
+			)
 			$('#mform').submit();
+			
 	  }
 		else{
 			event.preventDefault();
 		}
 	})
+
 		}
 
 function karakter(){
@@ -115,8 +117,7 @@ function sorgu(){
 
 		      $.ajax({
 		        type:'POST',
-		        url:'yukle.php',
-		        dataType: "json",
+		        url:'api.php',
 		        data:{kullanici_adi:kullanici_adi,kullanici_mail:kullanici_mail,insert:0},
 		        success:function(data){
 							console.log(data)
@@ -129,20 +130,12 @@ function sorgu(){
 
 		          }
 		          else{
-		            $.ajax({
-		              type:'POST',
-		              url:'yukle.php',
-		              dataType: "json",
-		              data:{kullanici_adi:kullanici_adi,kullanici_mail:kullanici_mail,kullanici_sifre:kullanici_sifre,insert:1},
-		              success:function(){
-									 
+		            $('#basari').fadeIn();
+										setTimeout(function(){
+											$('#myform').submit();
 
-		              }
-								});
-								$('#basari').fadeIn();
-									 setTimeout(function(){
-	 									$(location).attr('href', 'index/1');
-	 								},1000)
+										},1000)
+								
 
 
 		          }
@@ -169,21 +162,19 @@ function sorgu(){
 function sorgu2(){
 
 
-	var kullanici_adi = $("#kadi").val();
-	var kullanici_sifre = $("#ksifre").val();
+	var kadi = $("#kadi").val();
+	var ksifre = $("#ksifre").val();
 	event.preventDefault();
 	if (document.getElementById('myform').checkValidity()==true) {
 			$.ajax({
 				type:'POST',
-				url:'yukle.php',
+				url:'api.php',
 				dataType: "json",
-				data:{kullanici_adi:kullanici_adi,kullanici_sifre:kullanici_sifre,login:0},
+				data:{kadi:kadi,ksifre:ksifre,login:1},
 				success:function(giris){
-
-					if (giris.durum == '1')
+					if (giris.durum == "1")
 					{
-						$(location).attr('href', 'index/1');
-
+						window.location = '/alterstory/'
 					}
 					else{
 						$("#asd").fadeIn("slow");
@@ -192,6 +183,10 @@ function sorgu2(){
 						},2000)
 
 					}
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+					alert(thrownError);
 				}
 			});
 

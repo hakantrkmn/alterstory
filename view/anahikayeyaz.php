@@ -1,6 +1,5 @@
 <?php
-include 'class.php';
-include 'wiew/header.php';
+include 'view/header.php';
   ?>
 
 
@@ -16,7 +15,7 @@ include 'wiew/header.php';
             <!-- Blog Post -->
 
             <div class="card mb-4">
-              <form method="post" action="yukle.php">
+              <form method="post" action="?op=addRoot">
                 <div class="form-group">
                   <input name="hikaye-baslik"  type="text" class="form-control" placeholder="Hikaye Başlığı" required="required">
                 </div>
@@ -38,5 +37,5 @@ include 'wiew/header.php';
 
         </div>
         <!-- /.container -->
-<?php             include 'wiew/footer.php';
+<?php             include 'view/footer.php';
  ?>

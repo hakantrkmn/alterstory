@@ -1,16 +1,6 @@
 <?php
 
-include 'class.php';
-require_once 'classes/rootStory.php';
-require_once 'classes/firstAlter.php';
-
-if ($_GET['seviye']==1) {
-  $firstAlter = firstAlter::find($_GET['hikaye_id']);  
-}
-if ($_GET['seviye']==0) {
-  $rootStory = rootStory::find($_GET['hikaye_id']);
-}
-include 'wiew/header.php';
+include 'view/header.php';
 ?>
 
 <div class="container sd">
@@ -33,13 +23,13 @@ include 'wiew/header.php';
           <div class="card-body">
             <h2 align="center"class="card-title"><?php echo $rootStory->hikaye_baslik ?></h2>
             <p class="card-text"><?php echo $rootStory->hikaye_metin ?><br> <a href="profil/<?php echo $rootStory->kullanici->kullanici_adi  ?>"><?php echo $rootStory->kullanici->kullanici_adi ?></a>(<?php echo $rootStory->hikaye_tarih ?>)</p>
-            <?php if (hikaye::dolumu($_GET['hikaye_id'],$_GET['seviye'])==false): ?>
+            <?php if ($rootStory->devamsayisi<3): ?>
 
                 <?php if (isset($_SESSION['kullanici_adi'])): ?>
                   <?php if ($_SESSION['kullanici_adi']==$rootStory->kullanici->kullanici_adi): ?>
                   <?php elseif ($rootStory->izin()):?>
                   <?php else: ?>
-                    <form class="" action="alterekle.php" method="post">
+                    <form class="" action="?op=alterEkle" method="post">
                       <input type="hidden" name="parentid" value="<?php echo $rootStory->hikaye_id ?>">
                       <input type="hidden" name="seviye" value="<?php echo $rootStory->hikaye_seviye ?>">
                     <button class="btn btn-primary btn-sm"type="submit">devam ettir &rarr;</button>
@@ -65,23 +55,21 @@ include 'wiew/header.php';
             </p>
 
             <p class="card-text"><?php echo $firstAlter->alterbir_metin ?> <br> <a href="profil/<?php echo $firstAlter->kullanici->kullanici_adi  ?>"><?php echo $firstAlter->kullanici->kullanici_adi ?></a>(<?php echo $firstAlter->alterbir_tarih ?>)</p>
-            <?php if (hikaye::dolumu($_GET['hikaye_id'],$_GET['seviye'])==false): ?>
-
 
                 <?php if (isset($_SESSION['kullanici_adi'])): ?>
                   <?php if ($_SESSION['kullanici_adi']==$firstAlter->kullanici->kullanici_adi): ?>
 
                   <?php elseif ($_SESSION['kullanici_adi']==$firstAlter->parent->kullanici->kullanici_adi):?>
-                  <?php elseif (hikaye::izin($firstAlter,$firstAlter->alterbir_seviye)):?>
+                  <?php elseif ($firstAlter->devamsayisi>=3):?>
 
                   <?php else: ?>
-                    <form class="" action="alterekle" method="post">
+                    <form class="" action="?op=alterEkle" method="post">
                       <input type="hidden" name="parentid" value="<?php echo $firstAlter->alterbir_id ?>">
                       <input type="hidden" name="seviye" value="<?php echo $firstAlter->alterbir_seviye ?>">
 
                     <button class="btn btn-primary btn-sm"type="submit">devam ettir &rarr;</button>
 
-</form>
+                    </form>
                   <?php endif; ?>
 
                 <?php endif; ?>
@@ -92,8 +80,6 @@ include 'wiew/header.php';
 
         </div>
 
-
-      <?php endif; ?>
 
 
     </div>
@@ -107,7 +93,7 @@ include 'wiew/header.php';
           <div id="qwe"class="card mb-4">
             <div class="card-body">
               <p id="metin"class="card-text qw"><?php echo $rootStory->devamlar[$i]->alterbir_metin?> <br> <a href="profil/<?php echo $rootStory->devamlar[$i]->kullanici->kullanici_adi  ?>"><?php echo $rootStory->devamlar[$i]->kullanici->kullanici_adi ?></a>(<?php echo $rootStory->devamlar[$i]->alterbir_tarih ?>)</p>
-              <a href="altergör/<?php echo $rootStory->devamlar[$i]->alterbir_id ?>/<?php echo $rootStory->devamlar[$i]->alterbir_seviye ?>/<?php echo $rootStory->devamlar[$i]->alterbir_parentid ?>" class="btn btn-primary btn-sm">Alternatif Devamlar &rarr;</a>
+              <a href="?op=alterStories&hikaye_id=<?php echo $rootStory->devamlar[$i]->alterbir_id ?>&seviye=<?php echo $rootStory->devamlar[$i]->alterbir_seviye ?>&id=<?php echo $rootStory->devamlar[$i]->alterbir_parentid ?>" class="btn btn-primary btn-sm">Alternatif Devamlar &rarr;</a>
               <?php if ($rootStory->devamsayisi > 1): ?>
                 <button type="button" class="btn btn-primary silme btn-sm" name="button">Oku</button>
                 <?php else: ?>
@@ -136,7 +122,7 @@ include 'wiew/header.php';
         <div class="card mb-4">
             <div class="card-body">
               <p id="metin"class="card-text qw"><?php echo $firstAlter->devamlar[$i]->alteriki_metin ?> <br> <a href="profil/<?php echo $firstAlter->devamlar[$i]->kullanici->kullanici_adi  ?>"><?php echo $firstAlter->devamlar[$i]->kullanici->kullanici_adi ?></a>(<?php echo $firstAlter->devamlar[$i]->alteriki_tarih ?>)</p>
-              <a href="hikayeoku/<?php echo $firstAlter->devamlar[$i]->alteriki_id ?>/<?php echo $firstAlter->devamlar[$i]->alteriki_seviye ?>/<?php echo $firstAlter->devamlar[$i]->alteriki_parentid ?>" class="btn btn-primary btn-sm">Hikayeyi Oku&rarr;</a>
+              <a href="?op=hikayeoku&hikaye_id=<?php echo $firstAlter->devamlar[$i]->alteriki_id ?>&seviye=<?php echo $firstAlter->devamlar[$i]->alteriki_seviye ?>&id=<?php echo $firstAlter->devamlar[$i]->alteriki_parentid ?>" class="btn btn-primary btn-sm">Hikayeyi Oku&rarr;</a>
 
 
             </div>
@@ -179,5 +165,5 @@ setTimeout(function() {
 
 </script>
 
-<?php             include 'wiew/footer.php';
+<?php             include 'view/footer.php';
  ?>

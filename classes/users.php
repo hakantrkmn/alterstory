@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "mailController.php";
 class users
 {
@@ -7,6 +8,9 @@ class users
     public $kullanici_sifre;
     public $kullanici_mail;
     public $kullanici_ban;
+    public $rootStories;
+    public $firstAlters;
+    public $secondAlters;
 
 
     protected $con;
@@ -82,6 +86,50 @@ class users
         
                
     }
+    public static function initByNameNoObj($disaridanGelenName)
+    {
+       
+        $no = new self;
+        $no->kullanici_adi=$disaridanGelenName;
+        $selectQuery = $no->con->prepare("SELECT * FROM kullanici WHERE kullanici_adi = :adi");
+        $selectQuery->execute(['adi'=>$disaridanGelenName]);
+        $articleResult = $selectQuery->fetch(PDO::FETCH_OBJ);
+        if($articleResult!=null)
+        {
+          $articleResult->rootStories = $no->getRootStories();
+          $articleResult->firstAlters = $no->getFirstAlters();
+          $articleResult->secondAlters = $no->getSecondAlters();
+          unset($no);
+          return $articleResult;
+        }
+        
+               
+    }
+
+    public function getRootStories()
+    {
+        $selectQuery = $this->con->prepare("select anahikaye.* from kullanici natural join anahikaye where kullanici_adi =:adi ");
+        $selectQuery->execute(['adi'=>$this->kullanici_adi]);
+        $stories = $selectQuery->fetchAll(PDO::FETCH_OBJ);    
+        return $stories;  
+               
+    }
+    public function getFirstAlters()
+    {
+        $selectQuery = $this->con->prepare("select alternatifbir.* from kullanici natural join alternatifbir where kullanici_adi =:adi ");
+        $selectQuery->execute(['adi'=>$this->kullanici_adi]);
+        $articleResult = $selectQuery->fetchAll(PDO::FETCH_OBJ);
+        return $articleResult;        
+               
+    }
+    public function getSecondAlters()
+    {
+        $selectQuery = $this->con->prepare("select alternatifiki.* from kullanici natural join alternatifiki where kullanici_adi =:adi ");
+        $selectQuery->execute(['adi'=>$this->kullanici_adi]);
+        $articleResult = $selectQuery->fetchAll(PDO::FETCH_OBJ);
+        return $articleResult;    
+               
+    }
 
     public function insertUser(){
           $deneme = $this->con->prepare("INSERT INTO kullanici(kullanici_adi,kullanici_sifre,kullanici_mail) values(:kullanici_adi,:kullanici_sifre,:mail) ");
@@ -94,6 +142,9 @@ class users
 
           $mc = new mailController;
           $mc->welcome($this);
+          $_SESSION['kullanici_adi']=$user->kullanici_adi;
+          $_SESSION['kullanici_mail']=$user->kullanici_mail;
+          $_SESSION['kullanici_id']=$user->kullanici_id;
   
     }
 

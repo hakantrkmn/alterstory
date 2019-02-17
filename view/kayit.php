@@ -1,15 +1,11 @@
 <?php
 
-include 'class.php';
-$kullanicidurum;
-$yanlisgiris =0;
-
-include 'wiew/header.php';
+include 'view/header.php';
 ?>
 <div class="container sd">
 
  <div class="login-form">
-    <form id="myform" >
+    <form id="myform" action="?op=insertUser" method="POST" >
         <h2 class="text-center"> Kayıt Ol</h2>
         <div id="asd"style="display: none;" align="center" class="alert alert-danger">
   <strong>Kullanıcı mevcut</strong></div>
@@ -52,4 +48,4 @@ include 'wiew/header.php';
 </div>
 
 
-<?php include 'wiew/footer.php'; ?>
+<?php include 'view/footer.php'; ?>

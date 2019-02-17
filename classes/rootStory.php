@@ -50,6 +50,7 @@ class rootStory
         $deleteQuery = $this->con->prepare("DELETE FROM anahikaye WHERE hikaye_id = :kimlik");
         return $deleteQuery->execute(['kimlik'=>$this->hikaye_id]);
     }
+
     public function izin()
     {
       $videos = $this->con->prepare("SELECT kullanici_adi FROM alternatifbir NATURAL JOIN kullanici where alterbir_id=:birid or alterbir_id=:ikiid or alterbir_id=:ucid");
@@ -137,11 +138,13 @@ class rootStory
         if($articleResult!=null)
         {
             $articleResult->kullanici = users::initByIdNoObj($articleResult->kullanici_id);
+            $articleResult->hikaye_tarih=Carbon::createFromTimestamp(strtotime($articleResult->hikaye_tarih))->diffForHumans(); 
             return $articleResult;
         }
         
                
     }
+
 
     public static function find($id)
     {

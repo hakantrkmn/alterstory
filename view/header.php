@@ -3,7 +3,7 @@
 if (isset($_GET['cikis']) ) {
   if ($_GET['cikis']==1) {
     session_destroy();
-    header("Location: index/1");
+    header("Location: /alterstory");
     $cikis=0;
   }
 
@@ -67,14 +67,14 @@ if (isset($_GET['cikis']) ) {
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="profil/<?php echo $_SESSION['kullanici_adi']  ?>"><?php if (isset($_SESSION['kullanici_adi'])): ?>
+            <a class="nav-link" href="?op=profil&kullanici=<?php echo $_SESSION['kullanici_adi']  ?>"><?php if (isset($_SESSION['kullanici_adi'])): ?>
               <?php echo $_SESSION['kullanici_adi'] ?>
             <?php endif; ?></a>
 
           </li>
           <li class="nav-item">
             <?php if (isset($_SESSION['kullanici_adi'])): ?>
-              <a class="nav-link" href="anahikayeyaz">
+              <a class="nav-link" href="?op=anahikaye">
 
                 Hikaye Yaz <i class="fas fa-pen"></i>
 
@@ -96,7 +96,7 @@ if (isset($_GET['cikis']) ) {
           </li>
           <?php if (isset($_SESSION['kullanici_adi'])): ?>
             <li class="nav-item">
-              <a class="nav-link" href="index.php?cikis=1">
+              <a class="nav-link" href="?cikis=1">
 
                 Çıkış Yap <i class="fas fa-sign-out-alt"></i>
 
@@ -107,7 +107,7 @@ if (isset($_GET['cikis']) ) {
 
             <?php else: ?>
               <li class="nav-item">
-                <a class="nav-link" href="login">
+                <a class="nav-link" href="?op=login">
 
                   Giriş Yap/Kayıt Ol
 

@@ -6,7 +6,7 @@ require_once 'classes/users.php';
 require_once 'classes/mailController.php';
 
 
-if (isset($_POST['insert']) and $_POST['insert']==1) {
+if (isset($_POST['insert']) and $_POST['insert']==1) { opcode=insertUser
   $sifre = hash('sha256', $_POST['kullanici_sifre']);
   $user = new users;
   $user->kullanici_adi=$_POST['kullanici_adi'];
@@ -20,7 +20,7 @@ if (isset($_POST['insert']) and $_POST['insert']==1) {
 
 
 }
-if (isset($_POST['insert']) and $_POST['insert']==0) {
+if (isset($_POST['insert']) and $_POST['insert']==0) { opcode=checkUser
     $user = new users;
     $user->kullanici_adi=$_POST['kullanici_adi'];
     $user->kullanici_mail=$_POST['kullanici_mail'];
@@ -30,7 +30,7 @@ if (isset($_POST['insert']) and $_POST['insert']==0) {
     echo json_encode($data);
 
 }
-if (isset($_POST['login']) and $_POST['login']==0) {
+if (isset($_POST['login']) and $_POST['login']==0) {opcode=loginuser
   $user = new users;
     $sifre = hash('sha256', $_POST['kullanici_sifre']);
     $user->kullanici_adi=$_POST['kullanici_adi'];
@@ -48,7 +48,7 @@ if (isset($_POST['login']) and $_POST['login']==0) {
 
 }
 
-if (isset($_POST['sil']) and $_POST['sil']=="1") {
+if (isset($_POST['sil']) and $_POST['sil']=="1") {opcode=deletestory
   if ($_POST['seviye']=="0") {
     $delete = new rootStory;
     $delete->hikaye_id = $_POST['hikaye_id'];
@@ -71,7 +71,7 @@ if (isset($_POST['sil']) and $_POST['sil']=="1") {
 
 }
 
-
+/*
 if (isset($_GET['parentid'])) {
       $parentid = $_GET['parentid'];
   if ($_GET['seviye']==1) {
@@ -86,10 +86,10 @@ if (isset($_GET['parentid'])) {
   }
 
 }
-
+*/
 
 //eğer getten hikaye metin geldiyse ana hikaye demektir direk yüklenir
-if (isset($_POST["hikaye-metin"])) {
+if (isset($_POST["hikaye-metin"])) { opcode=addRoot
   $newRootStory = new rootStory;
   $newRootStory->hikaye_baslik=$_POST["hikaye-baslik"];
   $newRootStory->hikaye_metin=$_POST["hikaye-metin"];
@@ -101,7 +101,7 @@ if (isset($_POST["hikaye-metin"])) {
 
 }
 //eğer getten alter metin ve seviye 0 gelmişse 1.alternatif tablosuna yüklenir
-if (isset($_POST["alter-metin"]) and $_GET['seviye']==0){
+if (isset($_POST["alter-metin"]) and $_GET['seviye']==0){addFirstAlter
 
   $firstAlter = new firstAlter;
   $firstAlter->alterbir_metin = $_POST["alter-metin"];
@@ -113,7 +113,7 @@ header("Location: altergör/$firstAlter->alterbir_parentid/0");
 
 }
 
-if (isset($_POST["alter-metin"]) and $_GET['seviye']==1){
+if (isset($_POST["alter-metin"]) and $_GET['seviye']==1){addSecondAlter
 
   $secondAlter = new secondAlter;
   $secondAlter->alteriki_metin = $_POST["alter-metin"];
