@@ -1,19 +1,7 @@
-<?php
-include 'view/header.php';
-  ?>
-
-
-      <!-- Page Content -->
       <div class="container sd">
-
         <div class="row">
-
-          <!-- Blog Entries Column -->
           <div class="col-md-12">
-
             <h1 class="my-4 ">Hikayeni Başlat </h1>
-            <!-- Blog Post -->
-
             <div class="card mb-4">
               <form method="post" action="?op=addRoot">
                 <div class="form-group">
@@ -26,16 +14,6 @@ include 'view/header.php';
                 </div>
               </form>
             </div>
-
-
           </div>
-
-
-          <!-- /.row -->
-
         </div>
-
         </div>
-        <!-- /.container -->
-<?php             include 'view/footer.php';
- ?>

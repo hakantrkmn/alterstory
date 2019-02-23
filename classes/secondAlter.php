@@ -1,7 +1,6 @@
 <?php
-require_once 'classes/users.php';
-require_once 'classes/firstAlter.php';
 
+use Carbon\Carbon;
 
 class secondAlter
 {
@@ -81,6 +80,8 @@ class secondAlter
         $this->kullanici_id = $articleResult->kullanici_id;
         $this->kullanici = users::initByIdNoObj($this->kullanici_id);
         $this->parent = firstAlter::initByIdNoObj($this->alteriki_parentid);
+        $this->alteriki_tarih=Carbon::createFromTimestamp(strtotime($this->alteriki_tarih))->diffForHumans(); 
+
 
 
         
@@ -106,6 +107,8 @@ class secondAlter
         if($articleResult!=null)
         {
             $articleResult->kullanici = users::initByIdNoObj($articleResult->kullanici_id);
+            $articleResult->alteriki_tarih=Carbon::createFromTimestamp(strtotime($articleResult->alteriki_tarih))->diffForHumans(); 
+
             return $articleResult;
         }
         

@@ -9,13 +9,13 @@ $(window).bind("load", function() {
 	$('#dogrulama').keyup(function(){
 		if($('#ksifre').val()!=$('#dogrulama').val())
 		{
-			$('#kayit').attr("disabled", true);
+			$('#signin').attr("disabled", true);
 			$('#warn').fadeIn();
 		}
 		else
 		{
 			$('#warn').fadeOut();
-			$('#kayit').attr("disabled", false);
+			$('#signin').attr("disabled", false);
 
 
 		}
@@ -24,13 +24,13 @@ $(window).bind("load", function() {
 	$('#ksifre').keyup(function(){
 		if($('#ksifre').val()!=$('#dogrulama').val())
 		{
-			$('#kayit').attr("disabled", true);
+			$('#signin').attr("disabled", true);
 			$('#warn').fadeIn();
 		}
 		else
 		{
 			$('#warn').fadeOut();
-			$('#kayit').attr("disabled", false);
+			$('#signin').attr("disabled", false);
 
 
 		}
@@ -69,7 +69,6 @@ $(window).bind("load", function() {
 
 	});
 function emin(){
-console.log("asd");
 		Swal.fire({
 	  title: 'Bu hikayeyle birlikte alternatifleri de silinecek silmek istediğine emin misin?',
 	  type: 'warning',
@@ -117,7 +116,8 @@ function sorgu(){
 
 		      $.ajax({
 		        type:'POST',
-		        url:'api.php',
+						url:'api.php',
+						dataType: "json",
 		        data:{kullanici_adi:kullanici_adi,kullanici_mail:kullanici_mail,insert:0},
 		        success:function(data){
 							console.log(data)
@@ -130,13 +130,13 @@ function sorgu(){
 
 		          }
 		          else{
+
 		            $('#basari').fadeIn();
 										setTimeout(function(){
 											$('#myform').submit();
 
 										},1000)
 								
-
 
 		          }
 		        }
@@ -172,6 +172,7 @@ function sorgu2(){
 				dataType: "json",
 				data:{kadi:kadi,ksifre:ksifre,login:1},
 				success:function(giris){
+					console.log(giris)
 					if (giris.durum == "1")
 					{
 						window.location = '/alterstory/'

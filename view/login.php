@@ -1,35 +1,10 @@
-
-<?php
-
-
-
-
-
-include 'view/header.php';
-
-
-
-
-
-
-
-
-
-?>
-
-
-
-
-
-
 <div class="container sd">
-
  <div class="login-form">
     <form id="myform" action="" method="post">
         <h2 class="text-center">Giriş Yap</h2>
-          <div id="asd"style="display: none" align="center" class="alert alert-danger">
-    <strong>Bilgiler yanlış</strong></div>
-
+        <div id="asd"style="display: none" align="center" class="alert alert-danger">
+                <strong>Bilgiler yanlış</strong>
+        </div>
         <div class="form-group">
             <input id="kadi" name="kullanici_adi" type="text" class="form-control" placeholder="Kullanıcı Adı" required="required">
         </div>
@@ -38,15 +13,9 @@ include 'view/header.php';
         </div>
         <div class="form-group">
             <button onclick="sorgu2()" id="giris" type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
-            <a  id="giris" href="?op=kayit" class="btn btn-primary btn-block">Kayıt Ol</a>
+            <a  id="giris" href="signin" class="btn btn-primary btn-block">Kayıt Ol</a>
         </div>
     </form>
-
+</div>
 </div>
 
-</div>
-
-<?php
-include 'view/footer.php';
-
-?>

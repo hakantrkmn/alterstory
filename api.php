@@ -7,7 +7,7 @@ require_once "classes/storyController.php";
 require_once "classes/users.php";
 
 if (isset($_POST['login']) and $_POST['login']==1) {
-
+session_start();
 $user = new users;
 $sifre = hash('sha256', $_POST['ksifre']);
 $user->kullanici_adi=$_POST['kadi'];

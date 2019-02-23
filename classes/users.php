@@ -1,6 +1,5 @@
 <?php
-session_start();
-require_once "mailController.php";
+
 class users
 {
     public $kullanici_id;
@@ -139,12 +138,11 @@ class users
 
           
 
-
           $mc = new mailController;
           $mc->welcome($this);
-          $_SESSION['kullanici_adi']=$user->kullanici_adi;
-          $_SESSION['kullanici_mail']=$user->kullanici_mail;
-          $_SESSION['kullanici_id']=$user->kullanici_id;
+          $_SESSION['kullanici_adi']=$this->kullanici_adi;
+          $_SESSION['kullanici_mail']=$this->kullanici_mail;
+          $_SESSION['kullanici_id']=$this->kullanici_id;
   
     }
 
@@ -166,13 +164,11 @@ class users
     $kullanici = $this->con->prepare("SELECT * FROM kullanici where kullanici_adi=:kullanici_adi and kullanici_sifre=:kullanici_sifre");
     $kullanici->execute(array('kullanici_adi' => $this->kullanici_adi,'kullanici_sifre'=>$this->kullanici_sifre));
     $kullanici = $kullanici->fetch(PDO::FETCH_OBJ);
-    $this->kullanici_id=$kullanici->kullanici_id;
     if ($kullanici) {
       $_SESSION['kullanici_adi']=$this->kullanici_adi;
       $_SESSION['kullanici_sifre']=$this->kullanici_sifre;
-      $_SESSION['kullanici_id']=$this->kullanici_id;
+      $_SESSION['kullanici_id']=$kullanici->kullanici_id;
       return 1;
-
 
     }
     else {

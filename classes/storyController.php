@@ -9,20 +9,15 @@ class storyController
         $user->kullanici_adi=$_POST['kullanici_adi'];
         $user->kullanici_mail=$_POST['kullanici_mail'];
         $user->kullanici_sifre=$sifre;
-      
-        $user->insertUser();
-
-
-
-
-        header("Location: ?op=stories");
+        $user->insertUser(); 
+        header('Location: stories');
     }
-    static public function kayit()
+    static public function signin()
     {
      
     $kullanicidurum;
     $yanlisgiris =0;
-    require "view/kayit.php";
+    require "view/signin.php";
 
 
     }
@@ -51,7 +46,7 @@ class storyController
 
 
     }
-    static public function alterEkle()
+    static public function alteradd()
     {
       if (isset($_SESSION['kullanici_adi'])) {
         //eğer alternatif eklenmek istenen hikaye 1. seviyeyse ona göre sorgu
@@ -64,7 +59,7 @@ class storyController
           $rootStory = rootStory::find($_POST['parentid']);
     
         }
-        require "view/alterekle.php";
+        require "view/alteradd.php";
 
 
       }
@@ -105,7 +100,7 @@ class storyController
          $newRootStory->seviye = 0;
         $newRootStory->kullanici_id = $_SESSION["kullanici_id"];
         $newRootStory->create();
-        header("Location: ?op=alterStories&hikaye_id=$newRootStory->hikaye_id&seviye=0");
+        header("Location: alterstories/$newRootStory->hikaye_id/0");
     }
 
     static public function addAlter()
@@ -116,7 +111,7 @@ class storyController
         $firstAlter->alterbir_parentid = $_GET["parentid"];
         $firstAlter->kullanici_id = $_SESSION['kullanici_id'];
         $firstAlter->create();
-      header("Location: ?op=alterStories&hikaye_id=$firstAlter->alterbir_parentid&seviye=0");
+      header("Location: alterstories/$firstAlter->alterbir_parentid/0");
 
       }
       if ($_GET['seviye']=="1") {
@@ -126,27 +121,27 @@ class storyController
         $secondAlter->kullanici_id = $_SESSION['kullanici_id'];
         $secondAlter->create();
         $xd = $secondAlter->parent->alterbir_parentid;
-        header("Location: ?op=alterStories&hikaye_id=$secondAlter->alteriki_parentid&seviye=1&id= $xd");
+        header("Location: alterstories/$secondAlter->alteriki_parentid/1/$xd");
       
 
       }
 
     }
-    static public function anahikaye()
+    static public function createrootstory()
     {
-      require "view/anahikayeyaz.php";
+      require "view/createrootstory.php";
 
     }
-    static public function hikayeoku()
+    static public function readstory()
     {
       $secondAlter = secondAlter::find($_GET['hikaye_id']);
 
-      require "view/hikayeoku.php";
+      require "view/readstory.php";
 
     }
     static public function stories()
     {
-        
+      $pageNumber = ceil(rootStory::storyNumber() / 7);
         if (!isset($_GET['page'])) {
             $page=1;
           }
@@ -159,17 +154,18 @@ class storyController
       require "view/stories.php";
     }
 
-    static public function alterStories()
+    static public function alterstories()
     {
 
         if ($_GET['seviye']==1) {
-            $firstAlter = firstAlter::find($_GET['hikaye_id']);  
+            $firstAlter = firstAlter::find($_GET['hikaye_id']);   
           }
           if ($_GET['seviye']==0) {
             $rootStory = rootStory::find($_GET['hikaye_id']);
           }
 
-      require "view/altergör.php";
+      require "view/alterstories.php";
     }
 
 }
+

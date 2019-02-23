@@ -1,8 +1,6 @@
 <?php
-require 'vendor/autoload.php';
 
 use Carbon\Carbon;
-require_once 'classes/firstAlter.php';
 
 class rootStory
 {
@@ -168,5 +166,13 @@ class rootStory
         $articleHelper = new self;
         return $articleHelper->allArticles($page);
     }   
+    public static function storyNumber()
+    {
+        $no = new self;
+        $allQuery = $no->con->prepare("SELECT count(hikaye_id) as sayi FROM anahikaye");
+        $allQuery->execute();
+        $allArticles = $allQuery->fetch(PDO::FETCH_OBJ);
+        return $allArticles->sayi;
+    } 
 
 }

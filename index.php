@@ -10,9 +10,19 @@ require_once "classes/users.php";
 require_once "classes/mailController.php";
 
 
+include 'view/header.php';
+
 
 $requestedOperation = 'stories';
 if(isset($_GET['op']) && method_exists('StoryController', $_GET['op']))
     $requestedOperation = $_GET['op'];
 
 storyController::$requestedOperation();
+
+
+
+
+
+      
+  include 'view/footer.php';
+ 

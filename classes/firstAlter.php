@@ -1,13 +1,6 @@
 <?php
-require 'vendor/autoload.php';
 
 use Carbon\Carbon;
-require_once 'classes/users.php';
-require_once 'classes/secondAlter.php';
-require_once 'classes/rootStory.php';
-
-
-
 class firstAlter
 {
     public $alterbir_id;
@@ -115,10 +108,6 @@ class firstAlter
 
     public function initById($disaridanGelenKimlik)
     {
-       
-        
-             //  bir Article objesinin içini, veritabanındaki ilgili kimlik
-        //  bilgisiyle saklı satırın bilgileriyle dolduralım
         $selectQuery = $this->con->prepare("SELECT * FROM alternatifbir WHERE alterbir_id = :kimlik");
         $selectQuery->execute(['kimlik'=>$disaridanGelenKimlik]);
         $articleResult = $selectQuery->fetch(PDO::FETCH_OBJ);
@@ -165,8 +154,6 @@ class firstAlter
     {
        
         $no = new self;
-             //  bir Article objesinin içini, veritabanındaki ilgili kimlik
-        //  bilgisiyle saklı satırın bilgileriyle dolduralım
         $selectQuery = $no->con->prepare("SELECT * FROM alternatifbir WHERE alterbir_id = :kimlik");
         $selectQuery->execute(['kimlik'=>$disaridanGelenKimlik]);
         $articleResult = $selectQuery->fetch(PDO::FETCH_OBJ);
