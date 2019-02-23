@@ -21,8 +21,7 @@ class mailController
     
     public function welcome(users $user)
     {
-        $this->mailer->addAddress($user->kullanici_mail, $user->kullanici_adi);     // Add a recipient
-
+        $this->mailer->addAddress($user->kullanici_mail, $user->kullanici_adi); 
         $this->mailer->isHTML(true);
         $this->mailer->Subject = 'Hoşgeldin '. $user->kullanici_adi;
         $this->mailer->Body    = '<html>

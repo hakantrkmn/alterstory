@@ -21,14 +21,3 @@ RewriteRule ^([0-9a-zA-Z]+)/([0-9a-zA-Z]+) ?op=$1&kullanici=$2 [NC,L]
 RewriteRule ^([0-9a-zA-Z]+)/([0-9]+)/([0-9]+)/([0-9]+) ?op=$1&hikaye_id=$2&seviye=$3&id=$4 [NC,L] 
 
 
-
-
-
-
-
-
-
-
-RewriteRule ^altergör/([0-9]+)/([0-9]+)/([0-9]+) altergör.php?hikaye_id=$1&seviye=$2&id=$3 [NC,L]
-RewriteRule ^hikayeoku/([0-9]+)/([0-9]+)/([0-9]+) hikayeoku.php?hikaye_id=$1&seviye=$2&id=$3 [NC,L]
-RewriteRule ^profil/([0-9a-zA-Z]+) profil.php?kullanici=$1 [NC,L]
