@@ -40,27 +40,16 @@ class users
         return $deleteQuery->execute(['kimlik'=>$this->alterbir_id]);
     }
 
-    public function initById($disaridanGelenKimlik)
+    public function initById()
     {
-       
-        
-             //  bir Article objesinin içini, veritabanındaki ilgili kimlik
-        //  bilgisiyle saklı satırın bilgileriyle dolduralım
-        $selectQuery = $this->con->prepare("SELECT * FROM alternatifbir WHERE alterbir_id = :kimlik");
-        $selectQuery->execute(['kimlik'=>$disaridanGelenKimlik]);
+        $selectQuery = $this->con->prepare("SELECT * FROM kullanici WHERE kullanici_id = :kimlik");
+        $selectQuery->execute(['kimlik'=>$this->kullanici_id]);
         $articleResult = $selectQuery->fetch(PDO::FETCH_OBJ);
 
-        $this->alterbir_id = $articleResult->alterbir_id;
-        $this->alterbir_metin = $articleResult->alterbir_metin;
-        $this->alterbir_devambir = $articleResult->alterbir_devambir;
-        $this->alterbir_devamiki = $articleResult->alterbir_devamiki;
-        $this->alterbir_devamuc = $articleResult->alterbir_devamuc;
-        $this->alterbir_parentid = $articleResult->alterbir_parentid;
-        $this->alterbir_tarih = $articleResult->alterbir_tarih;
-        $this->alterbir_seviye = $articleResult->alterbir_seviye;
-        $this->alterbir_begeni = $articleResult->alterbir_begeni;
         $this->kullanici_id = $articleResult->kullanici_id;
-        
+        $this->kullanici_adi = $articleResult->kullanici_adi;
+        $this->kullanici_mail = $articleResult->kullanici_mail;
+        $this->kullanici_ban = $articleResult->kullanici_ban;
 
         unset($articleResult);
         
@@ -143,6 +132,8 @@ class users
           $_SESSION['kullanici_adi']=$this->kullanici_adi;
           $_SESSION['kullanici_mail']=$this->kullanici_mail;
           $_SESSION['kullanici_id']=$this->kullanici_id;
+          $_SESSION['kullanici_ban']=0;
+
   
     }
 
@@ -168,12 +159,12 @@ class users
       $_SESSION['kullanici_adi']=$this->kullanici_adi;
       $_SESSION['kullanici_sifre']=$this->kullanici_sifre;
       $_SESSION['kullanici_id']=$kullanici->kullanici_id;
+      $_SESSION['kullanici_ban']=$kullanici->kullanici_ban;
       return 1;
 
     }
     else {
       return 0;
-
     }
   }
 

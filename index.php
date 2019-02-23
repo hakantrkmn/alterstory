@@ -12,6 +12,7 @@ require_once "classes/mailController.php";
 
 include 'view/header.php';
 
+var_dump($_SESSION);
 
 $requestedOperation = 'stories';
 if(isset($_GET['op']) && method_exists('StoryController', $_GET['op']))

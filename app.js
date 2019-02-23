@@ -6,6 +6,25 @@
 
 $(window).bind("load", function() {
 
+	setInterval(function(){
+		$.ajax({
+		 type:'POST',
+		 url:'api.php',
+		 dataType: "json",
+		 data:{ban:1},
+		 success:function(deneme){
+			 if(deneme.ban==1)
+			 {
+					return 1;
+			 }
+			 console.log("sasa");
+		 }
+	 });
+
+ },300000)
+
+	
+
 	$('#dogrulama').keyup(function(){
 		if($('#ksifre').val()!=$('#dogrulama').val())
 		{
@@ -203,6 +222,14 @@ function noUser(e){
 		title: 'Giriş Yapmalısın',
 		text: 'Hikaye yazabilmek için giriş yapmalısın',
 		icon: 'error',
+		button: 'Anladım'
+	})
+}
+function ban(e){
+	swal({
+		title: 'Banlandın',
+		text: 'Banlandığın için bir süre hikaye yazamayacaksın',
+		icon: 'warning',
 		button: 'Anladım'
 	})
 }

@@ -48,7 +48,7 @@ class storyController
     }
     static public function alteradd()
     {
-      if (isset($_SESSION['kullanici_adi'])) {
+      if (isset($_SESSION['kullanici_adi']) and $_SESSION['kullanici_ban']=="0") {
         //eğer alternatif eklenmek istenen hikaye 1. seviyeyse ona göre sorgu
         if ($_POST['seviye']==1)
         {
@@ -129,7 +129,12 @@ class storyController
     }
     static public function createrootstory()
     {
-      require "view/createrootstory.php";
+      if (isset($_SESSION['kullanici_adi']) and $_SESSION['kullanici_ban']=="0") {
+        require "view/createrootstory.php";
+      }
+      else{
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+      }
 
     }
     static public function readstory()

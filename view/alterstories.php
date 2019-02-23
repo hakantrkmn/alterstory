@@ -14,6 +14,7 @@
                 <?php if (isset($_SESSION['kullanici_adi'])): ?>
                   <?php if ($_SESSION['kullanici_adi']==$rootStory->kullanici->kullanici_adi): ?>
                   <?php elseif ($rootStory->izin()):?>
+                  <?php elseif ($_SESSION['kullanici_ban']=="1"):?>
                   <?php else: ?>
                     <form class="" action="alteradd" method="post">
                       <input type="hidden" name="parentid" value="<?php echo $rootStory->hikaye_id ?>">
@@ -41,6 +42,7 @@
                   <?php if ($_SESSION['kullanici_adi']==$firstAlter->kullanici->kullanici_adi): ?>
                     <?php elseif ($_SESSION['kullanici_adi']==$firstAlter->parent->kullanici->kullanici_adi):?>
                     <?php elseif ($firstAlter->devamsayisi>=3):?>
+                    <?php elseif ($_SESSION['kullanici_ban']=="1"):?>
                     <?php else: ?>
                       <form class="" action="alteradd" method="post">
                       <input type="hidden" name="parentid" value="<?php echo $firstAlter->alterbir_id ?>">

@@ -60,8 +60,12 @@
             </li>
             <?php endif; ?>
             <li class="nav-item">
-              <?php if (isset($_SESSION['kullanici_adi'])): ?>
+              <?php if (isset($_SESSION['kullanici_adi']) and $_SESSION['kullanici_ban']=="0"): ?>
                 <a class="nav-link" href="createrootstory">
+                  Hikaye Yaz <i class="fas fa-pen"></i>
+                </a>
+                <?php elseif(isset($_SESSION['kullanici_adi']) and $_SESSION['kullanici_ban']=="1"): ?> 
+                <a class="nav-link" onclick="ban()">
                   Hikaye Yaz <i class="fas fa-pen"></i>
                 </a>
               <?php else: ?>
